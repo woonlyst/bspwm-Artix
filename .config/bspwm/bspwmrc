@@ -1,0 +1,41 @@
+#! /bin/sh
+
+#переключение раскадок клавиатуры
+setxkbmap "us,ru" ",winkeys" 'grp:alt_shift_toggle'
+
+#запуск композитора
+#picom &
+
+sxhkd &
+pgrep -x sxhkd > /dev/null || sxhkd &
+bspc monitor VGA-1 -d 1: 2 3 4 5 6 7 8 9 10
+
+bspc config border_width         1
+bspc config window_gap           3
+bspc config top_padding 	 35
+bspc config right_padding 	 3
+bspc config bottom_padding  	 3
+bspc config left_padding  	 3
+
+bspc config focused_border_color	"#4084d6"
+#ff5100
+bspc config normal_border_color		"#000000"
+#383838
+
+bspc config split_ratio          0.50
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc rule -a Firefox desktop='^2'
+bspc rule -a Tixati desktop='^10'
+
+#установка обоев
+feh --bg-scale ~/Wall/3.png
+
+#запуск полибара
+bash ~/.config/polybar/launch.sh
+
+xfsettingsd
+
+#запуск сервиса уведомлений
+dunst
