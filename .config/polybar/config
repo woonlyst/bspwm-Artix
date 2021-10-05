@@ -1,0 +1,349 @@
+[colors]
+
+include-file = ~/.config/polybar/colors.ini
+
+
+[settings]
+
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+
+[global/wm]
+
+margin-top = 0
+margin-bottom = 0
+
+
+;==================;
+;     polyBar      ;
+;==================;
+
+
+[bar/polyBar]
+
+
+monitor = 
+monitor-fallback =
+monitor-strict = false
+override-redirect = false
+wm-restack = bspwm
+
+bottom = false
+
+fixed-center = true
+
+width = 100%
+height = 25
+
+offset-x = 0
+offset-y = 0
+
+background = ${colors.bg}
+foreground = ${colors.fg}
+
+radius-top = 0
+radius-bottom = 0
+
+border-top-size = 5
+border-bottom-size = 1
+border-left-size = 0
+border-right-size = 0
+
+border-top-color = ${colors.bg}
+border-bottom-color = ${colors.fg1}
+border-left-color = ${colors.trans}
+border-right-color = ${colors.trans}
+
+padding-left = 1
+padding-right = 1
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+; font-N = <fontconfig pattern>;<vertical offset>
+; NOTE: The -font property is a 1-based index of available fonts 
+; (which means that *-font = 1 will use font-0)
+font-0 = "JetBrains Mono:size=9.5;2"
+font-1 = "Material Design Icons:style=Regular:size=14;3"
+font-2 = "Material Design Icons:style=Regular:size=22;5"
+font-3 = "JetBrains Mono:size=9.5;2"
+font-4 = "Weather Icons:style:Regular:size=10;2"
+
+
+;; Modules
+modules-left = launcher bar bspwm bar
+modules-center = date
+modules-right = bar weather bar xkeyboard bar pulseaudio bar cputemp bar sysmenu bar
+
+; The separator will be inserted between the output of each module
+separator = 
+
+; Opacity value between 0.0 and 1.0 used on fade in/out
+dim-value = 1.0
+
+; Value to be used to set the WM_NAME atom
+wm-name =
+
+; Locale used to localize various module data (e.g. date)
+locale = ru_RU.UTF-8
+
+;; System-Tray Settings: 
+tray-position = right
+tray-detached = false
+tray-maxsize = 14
+tray-transparent = false
+;tray-background = ${root.background}
+tray-offset-x = -6
+tray-offset-y = 0
+tray-padding = 0
+tray-scale = 1
+
+
+
+;; == == == == == == == == == == == == == == == == == == == == == ;;
+;;                     Application Settings                       ;;
+;; == == == == == == == == == == == == == == == == == == == == == ;;
+
+[settings]
+
+throttle-output = 5
+throttle-output-for = 10
+
+; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
+screenchange-reload = false
+
+; Compositing operators
+compositing-background = source
+compositing-foreground = over
+compositing-overline = over
+compositing-underline = over
+compositing-border = over
+
+; Enables pseudo-transparency for the bar
+; If set to true the bar can be transparent without a compositor.
+pseudo-transparency = false
+
+
+
+
+;; == == == == == == == == == == == == == == == == == == == == == ;;
+;;                     Modules                                    ;;
+;; == == == == == == == == == == == == == == == == == == == == == ;;
+
+
+[module/bspwm]
+type = internal/bspwm
+
+pin-workspaces = true
+inline-mode = true
+enable-click = true
+enable-scroll = false
+reverse-scroll = false
+fuzzy-match = true
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-default = 
+
+format = <label-state> <label-mode>
+
+format-background = ${colors.bg}
+
+label-monitor = VGA-1
+
+label-focused = "󰮯 "
+label-focused-foreground = ${colors.yellow}
+
+label-occupied = "󰧞 "
+label-occupied-foreground = ${colors.orange2}
+
+label-urgent = "󰗖 "
+label-urgent-foreground = ${colors.red}
+
+label-empty = "󰊠 "
+label-empty-foreground = ${colors.blue}
+
+label-focused-padding = 
+label-urgent-padding = 
+label-occupied-padding = 
+label-empty-padding = 
+format-padding = 
+
+
+
+[module/launcher]
+type = custom/text
+content = "󰣇 "
+
+; "content" has the same properties as "format-NAME"
+content-background = ${colors.bg}
+content-foreground = ${colors.blue}
+content-padding = 0
+format-padding = 0
+
+click-left = ~/.config/polybar/scripts/launcher &
+
+
+
+
+[module/date]
+type = internal/date
+
+interval = 1
+
+; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+date = 󰃵 %a, %b %d
+
+; Optional time format
+time = 󰅐 %H:%M:%S
+
+; Available tags:
+;   <label> (default)
+format = <label>
+format-prefix = 
+format-prefix-font = 1
+;format-prefix-foreground = ${color.CYAN}
+;format-background = ${color.BGL}
+
+; Available tokens:
+;   %date%
+;   %time%
+; Default: %date%
+label = %date% | %time%
+label-font = 1
+label-foreground = ${colors.yellow2}
+label-background = ${colors.bg}
+
+
+
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+
+
+format-prefix = " 󰥻 "
+format-prefix-foreground = ${colors.green2}
+format-foreground = ${colors.green2}
+label-layout = %layout%
+
+label-indicator-padding = 0
+label-indicator-margin = 0
+format-background = ${colors.bg}
+format-padding = 0
+
+
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = "  󰫔 <label-volume>"
+format-volume-foreground = ${colors.blue2}
+label-volume = %percentage%%
+label-volume-foreground = ${colors.blue2}
+
+format-volume-background = ${colors.bg}
+
+format-volume-padding = 1
+
+label-muted = 󰽳 off
+label-muted-foreground = ${colors.red}
+label-muted-background = ${colors.bg}
+label-muted-padding = 1
+
+
+bar-volume-width = 15
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #B2535B
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 5
+bar-volume-fill = ─
+bar-volume-fill-font = 5
+bar-volume-empty = ─
+bar-volume-empty-font = 5
+bar-volume-empty-foreground = ${colors.fg}
+
+
+
+
+[module/cputemp]
+type = custom/script
+
+warn-temperature = 60
+
+exec = sensors | grep --max-count=1 "CPU Temperature:" | awk '{print substr($0,22,3)}'
+
+interval = 10
+
+label = "󰘚 %output%°"
+;
+format-padding = 1
+
+format-background = ${colors.bg}
+format-foreground = ${colors.indigo2}
+
+
+
+
+
+[module/sysmenu]
+type = custom/text
+content = "󰤁"
+ 
+content-background = ${colors.bg}
+content-foreground = ${colors.purple2}
+content-padding = 1
+format-padding = 1
+
+click-left = ~/.config/polybar/scripts/powermenu &
+
+
+
+[module/weather]
+type = custom/script
+exec = ~/.config/polybar/scripts/scripts/openweathermap-forecast.sh
+interval = 600
+label-font = 5
+format-background = ${colors.bg}
+format-foreground = ${colors.pink2}
+format-padding = 1
+
+
+;; == == == == == == == == == == == == == == == == == == == == == ;;
+;; Separators and Stuff
+;; == == == == == == == == == == == == == == == == == == == == == ;;
+
+[module/space]
+type = custom/text
+content = " "
+
+content-background = ${colors.bg}
+content-foreground = ${colors.fg1}
+
+
+
+[module/bar]
+type = custom/text
+content = |
+
+content-background = ${colors.bg}
+content-foreground = ${colors.fg1}
+content-padding = 0
+
+
+
